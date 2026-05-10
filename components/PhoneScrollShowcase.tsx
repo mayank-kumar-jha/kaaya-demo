@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import { motion, AnimatePresence, useInView } from "motion/react";
 import dynamic from "next/dynamic";
 import ScrollReveal from "./ScrollReveal";
@@ -79,6 +79,14 @@ export default function PhoneScrollShowcase() {
 
   const prev = () => go(active === 0 ? slides.length - 1 : active - 1);
   const next = () => go(active === slides.length - 1 ? 0 : active + 1);
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setDir(1);
+      setActive((prevIdx) => (prevIdx === slides.length - 1 ? 0 : prevIdx + 1));
+    }, 3000);
+    return () => clearInterval(timer);
+  }, [active]);
 
   const slide = slides[active];
 

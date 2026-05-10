@@ -13,9 +13,21 @@ const navLinks = [
 function LetsTalkButton({ size = "md" }: { size?: "sm" | "md" }) {
   const [open, setOpen] = useState(false);
   const isSmall = size === "sm";
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (!open) return;
+    const handlePointerDown = (e: PointerEvent) => {
+      if (containerRef.current && !containerRef.current.contains(e.target as Node)) {
+        setOpen(false);
+      }
+    };
+    document.addEventListener("pointerdown", handlePointerDown);
+    return () => document.removeEventListener("pointerdown", handlePointerDown);
+  }, [open]);
 
   return (
-    <div className="relative">
+    <div className="relative" ref={containerRef}>
       <button
         onClick={() => setOpen((v) => !v)}
         className={`group inline-flex items-center gap-1.5 font-medium rounded-full border transition-all duration-300
@@ -36,8 +48,6 @@ function LetsTalkButton({ size = "md" }: { size?: "sm" | "md" }) {
       <AnimatePresence>
         {open && (
           <>
-            {/* Backdrop */}
-            <div className="fixed inset-0 z-40" onClick={() => setOpen(false)} />
             {/* Card */}
             <motion.div
               initial={{ opacity: 0, y: 6, scale: 0.97 }}
@@ -188,13 +198,13 @@ export default function Navbar() {
           y: { duration: 0.8, ease: [0.16, 1, 0.3, 1] },
           opacity: { duration: 0.8, ease: [0.16, 1, 0.3, 1] }
         }}
-        className={`pointer-events-auto overflow-hidden rounded-full border transition-colors duration-500 flex items-center justify-center relative
+        className={`pointer-events-auto rounded-full border transition-colors duration-500 flex items-center justify-center relative
           ${isHovered ? "w-full max-w-4xl h-14" : "w-28 h-12 md:w-32 md:h-12 cursor-pointer"}
           ${!isHovered
-            ? "bg-black/80 backdrop-blur-3xl border-white/10 shadow-[0_8px_32px_rgba(0,0,0,0.5)]"
+            ? "bg-black/30 backdrop-blur-xl border-white/20 shadow-[inset_0_1px_1px_rgba(255,255,255,0.15),0_8px_32px_rgba(0,0,0,0.5)]"
             : scrolled
-              ? "bg-[#050507]/90 backdrop-blur-2xl border-white/[0.08] shadow-lg shadow-black/40"
-              : "bg-[#050507]/60 backdrop-blur-xl border-white/[0.05] shadow-md shadow-black/20"
+              ? "bg-[#050507]/40 backdrop-blur-xl border-white/20 shadow-[inset_0_1px_1px_rgba(255,255,255,0.15),0_8px_32px_rgba(0,0,0,0.5)]"
+              : "bg-[#050507]/20 backdrop-blur-xl border-white/10 shadow-[inset_0_1px_1px_rgba(255,255,255,0.1),0_8px_32px_rgba(0,0,0,0.3)]"
         }`}
       >
         <AnimatePresence mode="wait">

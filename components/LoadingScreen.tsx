@@ -53,7 +53,7 @@ export default function LoadingScreen({ forceMount = false }: LoadingScreenProps
     <motion.div
       className="fixed inset-0 z-[9999] flex items-center justify-center bg-[#050507]"
       animate={{ opacity }}
-      transition={transition}
+      transition={transition as any}
       style={{ pointerEvents: phase === "fadeout" ? "none" : "auto" }}
     >
       {/* Orb — contained region for GPU efficiency */}

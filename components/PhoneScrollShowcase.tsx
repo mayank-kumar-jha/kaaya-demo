@@ -1,9 +1,10 @@
 "use client";
 
 import Image from "next/image";
-import { useState } from "react";
-import { motion, AnimatePresence } from "motion/react";
+import { useState, useRef } from "react";
+import { motion, AnimatePresence, useInView } from "motion/react";
 import dynamic from "next/dynamic";
+import ScrollReveal from "./ScrollReveal";
 
 const Spline = dynamic(() => import('@splinetool/react-spline'), { 
   ssr: false,
@@ -81,6 +82,9 @@ export default function PhoneScrollShowcase() {
 
   const slide = slides[active];
 
+  const cardRef = useRef<HTMLDivElement>(null);
+  const cardInView = useInView(cardRef, { once: true, margin: "-80px" });
+
   return (
     <section className="relative py-24 md:py-32">
       {/* Background */}
@@ -88,8 +92,8 @@ export default function PhoneScrollShowcase() {
 
       <div className="relative z-10 max-w-7xl mx-auto px-6 lg:px-8">
         {/* Header */}
-        <div className="text-center mb-14">
-          <p className="text-xs font-semibold tracking-[0.2em] uppercase text-emerald-400 mb-4">
+        <ScrollReveal className="text-center mb-14">
+          <p className="text-xs font-semibold tracking-[0.2em] uppercase text-violet-400 mb-4">
             See It In Action
           </p>
           <h2 className="text-3xl md:text-5xl font-bold tracking-tight">
@@ -99,12 +103,16 @@ export default function PhoneScrollShowcase() {
             Walk through every mode of Kaaya — from a quiet overlay to a full
             multimodal powerhouse.
           </p>
-        </div>
+        </ScrollReveal>
 
-        {/* Card */}
-        <div
+        {/* Card — slides in on scroll, motion.div IS the card container */}
+        <motion.div
+          ref={cardRef}
+          initial={{ opacity: 0, transform: "translateY(48px)" }}
+          animate={cardInView ? { opacity: 1, transform: "translateY(0px)" } : {}}
+          transition={{ duration: 0.75, ease: [0.16, 1, 0.3, 1] }}
+          style={{ willChange: "transform, opacity", background: "rgba(10,10,18,0.85)" }}
           className="relative rounded-3xl border border-white/[0.07] overflow-hidden"
-          style={{ background: "rgba(10,10,18,0.85)" }}
         >
           {/* Spline 3D Background */}
           <div className="absolute inset-0 z-0 pointer-events-none opacity-60">
@@ -264,7 +272,7 @@ export default function PhoneScrollShowcase() {
           <div className="absolute bottom-5 right-8 text-xs text-white/20 tracking-widest font-mono z-20">
             {String(active + 1).padStart(2, "0")} / {String(slides.length).padStart(2, "0")}
           </div>
-        </div>
+        </motion.div>
       </div>
     </section>
   );

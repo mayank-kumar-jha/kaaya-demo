@@ -19,25 +19,25 @@ const advantages = [
     icon: "🛡️",
     title: "Never Goes Down",
     description: "5-model Gemini waterfall + Groq fallback ensures 99.9%+ AI availability.",
-    color: "#10b981",
+    color: "#8b5cf6",
   },
   {
     icon: "⚡",
     title: "Native-First UX",
     description: "1,800+ lines of Kotlin for a buttery-smooth overlay experience.",
-    color: "#f59e0b",
+    color: "#d946ef",
   },
   {
     icon: "🎭",
     title: "Emotional Connection",
     description: "SoraEyes with blinking, looking, and glow create an animated personality.",
-    color: "#34d399",
+    color: "#a78bfa",
   },
   {
     icon: "🔮",
     title: "True Multimodal",
     description: "Text, voice, vision, image gen, and device control in one interface.",
-    color: "#d4a843",
+    color: "#9333ea",
   },
 ];
 
@@ -45,12 +45,12 @@ export default function ComparisonSection() {
   return (
     <section className="relative py-24 md:py-32">
       <div className="absolute inset-0 dot-grid opacity-20 pointer-events-none" />
-      <div className="absolute bottom-0 right-1/4 w-[500px] h-[400px] bg-emerald-600/5 rounded-full blur-[120px] pointer-events-none" />
+      <div className="absolute bottom-0 right-1/4 w-[500px] h-[400px] bg-violet-600/5 rounded-full blur-[120px] pointer-events-none" />
 
       <div className="relative z-10 max-w-7xl mx-auto px-6 lg:px-8">
         {/* Section header */}
         <ScrollReveal className="text-center mb-16">
-          <p className="text-xs font-semibold tracking-[0.2em] uppercase mb-4" style={{ color: "#d4a843" }}>
+          <p className="text-xs font-semibold tracking-[0.2em] uppercase mb-4" style={{ color: "#9333ea" }}>
             Why Kaaya
           </p>
           <h2 className="text-3xl md:text-5xl font-bold tracking-tight">
@@ -62,13 +62,13 @@ export default function ComparisonSection() {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-16">
           {/* Comparison table */}
           <ScrollReveal>
-            <div className="glass-card p-6 md:p-8 h-full">
+            <div className="glass-card p-6 md:p-8 h-full subcard-hover">
               <h3 className="text-lg font-bold text-white mb-6">Feature Comparison</h3>
               <div className="space-y-1">
                 {/* Header */}
                 <div className="grid grid-cols-[1fr_80px_80px] gap-2 pb-3 border-b border-white/[0.06]">
                   <span className="text-xs text-[#9ca3af] uppercase tracking-wider">Feature</span>
-                  <span className="text-xs text-emerald-400 uppercase tracking-wider text-center">Kaaya</span>
+                  <span className="text-xs text-violet-400 uppercase tracking-wider text-center">Kaaya</span>
                   <span className="text-xs text-[#9ca3af] uppercase tracking-wider text-center">Others</span>
                 </div>
                 {comparisons.map((row, i) => (
@@ -82,7 +82,7 @@ export default function ComparisonSection() {
                   >
                     <span className="text-sm text-white/80">{row.feature}</span>
                     <span className="text-center">
-                      <span className="text-emerald-400 text-sm">✓</span>
+                      <span className="text-violet-400 text-sm">✓</span>
                     </span>
                     <span className="text-center">
                       <span className="text-red-400/60 text-sm">✗</span>
@@ -98,9 +98,10 @@ export default function ComparisonSection() {
             {advantages.map((adv, i) => (
               <ScrollReveal key={adv.title} delay={i * 0.1} direction="right">
                 <motion.div
-                  whileHover={{ x: 4 }}
-                  transition={{ duration: 0.3 }}
-                  className="glass-card p-5 flex items-start gap-4 cursor-default"
+                  whileHover={{ x: 4, scale: 1.01 }}
+                  transition={{ duration: 0.25 }}
+                  className="glass-card p-5 flex items-start gap-4 cursor-default border border-white/[0.06] hover:border-violet-500/20 transition-colors duration-300"
+                  style={{ willChange: "transform" }}
                 >
                   <div
                     className="w-11 h-11 rounded-xl flex items-center justify-center text-lg shrink-0 border"

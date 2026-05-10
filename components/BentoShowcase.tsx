@@ -18,7 +18,8 @@ function BentoCard({ image, title, description, icon, className = "", index }: B
   return (
     <ScrollReveal delay={index * 0.15} className={className}>
       <TiltCard tiltAmount={6} className="h-full">
-        <div className="group relative h-full rounded-2xl overflow-hidden border border-white/[0.06] bg-[#0a0a12] cursor-pointer">
+        {/* subcard-hover uses CSS transform only — GPU-composited, no layout reflow */}
+        <div className="group relative h-full rounded-2xl overflow-hidden border border-white/[0.06] bg-[#0a0a12] cursor-pointer subcard-hover">
           {/* Image */}
           <div className="relative w-full h-full min-h-[280px] md:min-h-[320px]">
             <Image
@@ -35,7 +36,7 @@ function BentoCard({ image, title, description, icon, className = "", index }: B
           {/* Content */}
           <div className="absolute bottom-0 left-0 right-0 p-6 md:p-8">
             <div className="flex items-center gap-3 mb-3">
-              <div className="w-10 h-10 rounded-xl bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center text-emerald-400 group-hover:bg-emerald-500/20 transition-colors duration-300">
+              <div className="w-10 h-10 rounded-xl bg-violet-500/10 border border-violet-500/20 flex items-center justify-center text-violet-400 group-hover:bg-violet-500/20 transition-colors duration-300">
                 {icon}
               </div>
               <h3 className="text-lg md:text-xl font-bold text-white">{title}</h3>
@@ -46,7 +47,7 @@ function BentoCard({ image, title, description, icon, className = "", index }: B
           </div>
 
           {/* Hover border glow */}
-          <div className="absolute inset-0 rounded-2xl border border-emerald-500/0 group-hover:border-emerald-500/20 transition-all duration-500 pointer-events-none" />
+          <div className="absolute inset-0 rounded-2xl border border-violet-500/0 group-hover:border-violet-500/25 transition-all duration-500 pointer-events-none" />
         </div>
       </TiltCard>
     </ScrollReveal>
@@ -107,12 +108,12 @@ export default function BentoShowcase() {
   return (
     <section id="features" className="relative py-24 md:py-32">
       {/* Background glow */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[400px] bg-emerald-600/5 rounded-full blur-[120px] pointer-events-none" />
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[400px] bg-violet-600/5 rounded-full blur-[120px] pointer-events-none" />
 
       <div className="relative z-10 max-w-7xl mx-auto px-6 lg:px-8">
         {/* Section header */}
         <ScrollReveal className="text-center mb-16">
-          <p className="text-xs font-semibold tracking-[0.2em] uppercase text-emerald-400 mb-4">
+          <p className="text-xs font-semibold tracking-[0.2em] uppercase text-violet-400 mb-4">
             Capabilities
           </p>
           <h2 className="text-3xl md:text-5xl font-bold tracking-tight">
@@ -132,8 +133,9 @@ export default function BentoShowcase() {
             {capabilities.map((cap, i) => (
               <motion.div
                 key={i}
-                whileHover={{ scale: 1.05, y: -2 }}
-                className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/[0.03] border border-white/[0.06] text-sm text-white/70 hover:text-white hover:border-emerald-500/30 hover:bg-emerald-500/5 transition-all duration-300 cursor-default"
+                whileHover={{ scale: 1.06, y: -2 }}
+                transition={{ type: "spring", stiffness: 400, damping: 20 }}
+                className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/[0.03] border border-white/[0.06] text-sm text-white/70 hover:text-white hover:border-violet-500/30 hover:bg-violet-500/5 transition-colors duration-300 cursor-default"
               >
                 <span>{cap.icon}</span>
                 <span>{cap.label}</span>
@@ -151,7 +153,7 @@ export default function BentoShowcase() {
 
           {/* Stats card */}
           <ScrollReveal delay={0.45} className="lg:col-span-2">
-            <div className="glass-card p-6 md:p-8 h-full">
+            <div className="glass-card p-6 md:p-8 h-full subcard-hover">
               <div className="flex flex-col md:flex-row md:items-center gap-6">
                 <div className="flex-1">
                   <h3 className="text-lg font-bold text-white mb-2">Powered by Model Waterfall</h3>
@@ -165,9 +167,9 @@ export default function BentoShowcase() {
                     (model, i) => (
                       <motion.span
                         key={i}
-                        whileHover={{ scale: 1.08, y: -2, borderColor: "rgba(16,185,129,0.3)" }}
+                        whileHover={{ scale: 1.08, y: -2 }}
                         transition={{ type: "spring", stiffness: 400, damping: 17 }}
-                        className="px-3 py-1 text-xs rounded-full bg-white/[0.04] border border-white/[0.06] text-white/60 whitespace-nowrap cursor-default hover:text-white/90 hover:bg-emerald-500/5 transition-colors"
+                        className="px-3 py-1 text-xs rounded-full bg-white/[0.04] border border-white/[0.06] text-white/60 whitespace-nowrap cursor-default hover:text-white/90 hover:bg-violet-500/8 hover:border-violet-500/30 transition-colors"
                       >
                         {model}
                       </motion.span>

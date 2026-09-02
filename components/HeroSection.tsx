@@ -61,7 +61,7 @@ export default function HeroSection() {
           style={{ willChange: "transform, opacity" }}
           className="mt-4 text-lg sm:text-xl md:text-2xl font-semibold text-white/90 tracking-tight"
         >
-          The Intelligent Digital Executive Assistant
+          The Intelligent Digital Executive Assistant By Mayank Kumar Jha
         </motion.p>
 
         {/* Tagline */}
